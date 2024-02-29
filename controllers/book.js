@@ -6,7 +6,6 @@ exports.createBook = (req, res, next) => {
   const bookObject = JSON.parse(req.body.book);
   delete bookObject._id;
   delete bookObject.userId;
-  console.log(bookObject);
   const book = new Book({
     ...bookObject,
     userId: req.auth.userId,
@@ -14,7 +13,6 @@ exports.createBook = (req, res, next) => {
       req.file.filename
     }`,
   });
-  console.log(book);
   book
     .save()
     .then(() => {
