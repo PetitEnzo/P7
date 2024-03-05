@@ -4,6 +4,17 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 exports.signup = (req, res, next) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const passwordRegex = /^.{8,}$/;
+  if (!emailRegex.test(req.body.email)) {
+    return res.status(400).json({ error: "Format de l'email invalide" });
+  }
+  if (!passwordRegex.test(req.body.password)) {
+    return res
+      .status(400)
+      .json({ error: 'Mot de passe doit avoir au moins 8 caractères' });
+  }
+
   bcrypt
     .hash(req.body.password, 10)
     .then((hash) => {
