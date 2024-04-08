@@ -4,9 +4,9 @@ const router = express.Router();
 const bookCtrl = require('../controllers/book');
 const auth = require('../middleware/auth');
 const multer = require('../middleware/multer-config');
-const sharpMiddleware = require('../middleware/imageMiddleware');
+const sharp = require('../middleware/imageMiddleware');
 
-router.post('/', auth, multer, bookCtrl.createBook);
+router.post('/', auth, multer, sharp, bookCtrl.createBook);
 
 router.get('/', bookCtrl.getAllBooks);
 
